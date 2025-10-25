@@ -28,7 +28,7 @@ namespace FichasDePersonagens.Controllers
             if (usuario != null && usuario.Senha == senha)
             {
                 // Autenticação bem-sucedida
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Ficha");
             }
             ModelState.AddModelError("", "Email ou senha inválidos.");
             return View();

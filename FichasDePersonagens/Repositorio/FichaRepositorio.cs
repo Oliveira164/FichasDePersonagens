@@ -37,41 +37,41 @@ namespace FichasDePersonagens.Repositorio
             }
         }
 
-        public Ficha ObterFicha(string nome)
+        public List<Ficha> ObterFicha()
         {
-            using (var conexao = new MySqlConnection(_conexaoMySQL))
+            var fichas = new List<Ficha>();
+
+            using (var connection = new MySqlConnection(_conexaoMySQL))
             {
-                conexao.Open();
-
-                MySqlCommand cmd = new("SELECT * FROM fichas WHERE nome = @nome", conexao);
-
-                cmd.Parameters.Add("@nome", MySqlDbType.VarChar).Value = nome;
-
-                using (MySqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection))
+                connection.Open();
+                var query = "SELECT * FROM fichas";
+                using (var command = new MySqlCommand(query, connection))
+                using (var reader = command.ExecuteReader())
                 {
-                    Ficha ficha = null;
-
-                    if (dr.Read())
+                    while (reader.Read())
                     {
-                        ficha = new Ficha
+                        var ficha = new Ficha
                         {
-                            Id = Convert.ToInt32(dr["id"]),
-                            Nome = dr["nome"].ToString(),
-                            Idade = Convert.ToInt32(dr["idade"]),
-                            Origem = dr["origem"].ToString(),
-                            Classe = dr["classe"].ToString(),
-                            Forca = Convert.ToInt32(dr["forca"]),
-                            Agilidade = Convert.ToInt32(dr["agilidade"]),
-                            Inteligencia = Convert.ToInt32(dr["inteligencia"]),
-                            Defesa = Convert.ToInt32(dr["defesa"]),
-                            Energia = Convert.ToInt32(dr["energia"]),
-                            Habilidades = dr["habilidades"].ToString(),
-                            Curiosidades = dr["curiosidades"].ToString()
+                            Id = reader.GetInt32("Id"),
+                            Nome = reader.GetString("Nome"),
+                            Idade = reader.GetInt32("Idade"),
+                            Origem = reader.GetString("Origem"),
+                            Classe = reader.GetString("Classe"),
+                            Forca = reader.GetInt32("Forca"),
+                            Agilidade = reader.GetInt32("Agilidade"),
+                            Inteligencia = reader.GetInt32("Inteligencia"),
+                            Defesa = reader.GetInt32("Defesa"),
+                            Energia = reader.GetInt32("Energia"),
+                            Habilidades = reader.GetString("Habilidades"),
+                            Curiosidades = reader.GetString("Curiosidades")
                         };
+                        fichas.Add(ficha);
                     }
-                    return ficha;
                 }
             }
+            return fichas;
         }
     }
 }
+  
+

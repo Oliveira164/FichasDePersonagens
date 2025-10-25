@@ -15,6 +15,14 @@ namespace FichasDePersonagens.Controllers
         }
 
         [HttpGet]
+        public IActionResult Index()
+        {
+            var fichas = _fichaRepositorio.ObterFicha(); 
+            return View(fichas); 
+        }
+
+
+        [HttpGet]
         public IActionResult Criar()
         {
             return View();

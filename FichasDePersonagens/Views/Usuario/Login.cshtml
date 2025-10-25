@@ -1,13 +1,35 @@
-﻿<form asp-action="Login" method="post">
-	<h1>Login</h1>
-    <div>
-        <label>Email</label>
-        <input type="email" name="email" maxlength="100" required />
-    </div>
+﻿@model FichasDePersonagens.Models.Usuario
 
-    <div>
-        <label>Senha</label>
-        <input type="password" name="senha" maxlength="8" required />
+@{
+    ViewData["Title"] = "Login";
+}
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+<div class="container d-flex justify-content-center align-items-center min-vh-100">
+    <div class="card shadow-lg p-4" style="width: 400px;">
+        <h2 class="text-center mb-4">Login</h2>
+        <form asp-action="Login" method="post">
+            <div class="mb-3">
+                <label class="form-label">Email</label>
+                <input type="email" name="email" class="form-control" placeholder="exemplo@email.com" required />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Senha</label>
+                <input type="password" name="senha" class="form-control" placeholder="********" maxlength="8" required />
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100">
+                <i class="bi bi-box-arrow-in-right me-2"></i> Login
+            </button>
+        </form>
+
+        <div class="mt-3 text-center">
+            <a asp-action="Cadastro" class="text-decoration-none">Não tem conta? Cadastre-se</a>
+        </div>
     </div>
-    <button type="submit">Login</button>
-</form>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
